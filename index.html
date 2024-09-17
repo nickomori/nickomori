@@ -3,56 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up for the Next Drop</title>
+    <title>Unicklo - Sign Up for the Next Drop</title>
     <style>
+        /* Global styles */
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f0f0;
             margin: 0;
-            padding: 0;
-        }
-        .container {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
             justify-content: center;
+            align-items: center;
             height: 100vh;
+            background-color: #1b1b1b;
+            transition: background-color 0.5s;
+            color: #ffffff;
         }
+
+        /* Header */
         h1 {
-            font-size: 2.5em;
+            font-size: 3em;
             margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #FFD700;
         }
+
+        /* Container for content */
+        .container {
+            text-align: center;
+        }
+
+        /* Mouse effect text */
+        .mouse-effect {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        /* Email form */
         form {
-            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
+
         input[type="email"] {
             padding: 10px;
             font-size: 1em;
             width: 300px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: black;
-            color: white;
+            border-radius: 5px;
             border: none;
-            cursor: pointer;
+            margin-bottom: 10px;
+            outline: none;
         }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.2em;
+            background-color: #FFD700;
+            color: #1b1b1b;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
         button:hover {
-            background-color: #333;
+            background-color: #ffcc00;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            input[type="email"] {
+                width: 250px;
+            }
+
+            button {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>Sign Up for the Next Drop</h1>
-        <p>Be the first to know when we release something exclusive!</p>
+        <!-- Header -->
+        <h1>Unicklo</h1>
+        <!-- Mouse effect description -->
+        <p class="mouse-effect">Sign up to be the first to know when we release the next drop!</p>
+
+        <!-- Email form -->
         <form>
             <input type="email" placeholder="Enter your email" required>
-            <br>
             <button type="submit">Sign Up</button>
         </form>
     </div>
+
+    <script>
+        // JavaScript for mouse movement effect
+        document.addEventListener("mousemove", function(event) {
+            const x = event.clientX / window.innerWidth;
+            const y = event.clientY / window.innerHeight;
+            const r = Math.round(x * 255);
+            const g = Math.round(y * 255);
+            const b = 150; // keep it a cool tone
+            document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        });
+    </script>
 </body>
 </html>
