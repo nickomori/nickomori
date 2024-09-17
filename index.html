@@ -4,45 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unicklo - Sign Up for the Next Drop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
     <style>
         /* Global styles */
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #9fbfaf; /* Slightly darker background */
+            font-family: 'Fjalla One', sans-serif; /* Vintage-inspired font */
+            background-color: #cce5f5; /* Smooth light blue background */
             color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Top navigation bar */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #bfd4c6; /* Lighter green */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Drop shadow */
+        /* Centered logo */
+        .logo-container {
             display: flex;
+            justify-content: center;
             align-items: center;
-            padding: 10px 20px;
+            margin-bottom: 40px;
         }
 
         .logo {
-            height: 60px;
+            width: 240px; /* Smaller logo */
+            height: auto;
         }
 
-        /* Container for content */
+        /* Main content container */
         .container {
             text-align: center;
+            background-color: #f0f4fb; /* Lighter complementary tone */
             padding: 20px;
-            background-color: #a9c2b4; /* Slightly darker shade for depth */
             border-radius: 10px;
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Subtle drop shadow */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 400px;
         }
 
         h1 {
@@ -51,26 +53,21 @@
             color: #333;
         }
 
-        p {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-        }
-
         /* Email form */
         input[type="email"] {
             padding: 10px;
             font-size: 1em;
-            width: 100%;
+            flex: 1;
             border-radius: 5px;
             border: 1px solid #ddd;
-            margin-bottom: 10px;
+            margin-right: 10px;
             outline: none;
         }
 
         button {
             padding: 12px 20px;
             font-size: 1em;
-            background-color: #ffd700;
+            background-color: #ffcc33;
             color: #333;
             border: none;
             border-radius: 5px;
@@ -79,29 +76,54 @@
         }
 
         button:hover {
-            background-color: #ffcc00;
+            background-color: #ffb732;
         }
+
+        /* Magnifying glass effect */
+        .magnify {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            transform: translate(-60px, -60px);
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Header with Logo -->
-    <div class="header">
-        <a href="/">
-            <img src="images/u-nick-lo-logo.png" alt="Unicklo Logo" class="logo">
-        </a>
+    <!-- Magnifying glass effect -->
+    <div class="magnify" id="magnify"></div>
+
+    <!-- Centered logo -->
+    <div class="logo-container">
+        <img src="images/u-nick-lo-logo.png" alt="Unicklo Logo" class="logo">
     </div>
 
     <!-- Container for Main Content -->
     <div class="container">
-        <h1>Sign Up for the Next Drop</h1>
-        <p>Be the first to know when we release something exclusive!</p>
-
-        <form>
+        <form style="display: flex; width: 100%;">
             <input type="email" placeholder="Enter your email" required>
             <button type="submit">Sign Up</button>
         </form>
     </div>
 
+    <!-- JavaScript for magnifying glass effect -->
+    <script>
+        const magnify = document.getElementById('magnify');
+        document.addEventListener('mousemove', (e) => {
+            magnify.style.display = 'block';
+            magnify.style.left = `${e.clientX}px`;
+            magnify.style.top = `${e.clientY}px`;
+        });
+
+        document.addEventListener('mouseout', () => {
+            magnify.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
