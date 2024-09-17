@@ -19,53 +19,75 @@
             flex-direction: column;
             overflow: hidden;
             position: relative;
+            cursor: none; /* Hide default cursor */
         }
 
-        /* Centered logo */
-        .logo-container {
+        /* Floating transparent navigation bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2); /* Transparent */
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            z-index: 100;
         }
 
-        .logo {
-            width: 240px; /* Smaller logo */
-            height: auto;
+        .navbar-logo {
+            flex-grow: 1;
+            text-align: center;
         }
 
-        /* Main content container */
+        .navbar-logo img {
+            width: 140px;
+        }
+
+        .cart {
+            margin-right: 20px;
+            font-size: 1.2em;
+        }
+
+        .cart a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s, text-decoration 0.3s;
+        }
+
+        .cart a:hover {
+            text-decoration: underline;
+            color: #000;
+        }
+
+        /* Container for main content */
         .container {
             text-align: center;
-            background-color: #f0f4fb; /* Lighter complementary tone */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Subtle drop shadow */
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between;
-            width: 400px;
+            margin-top: 80px; /* Space below the navbar */
         }
 
-        h1 {
-            font-size: 1.8em;
+        /* Sign-up form */
+        h2 {
+            font-size: 2.5em;
             margin-bottom: 20px;
-            color: #333;
         }
 
-        /* Email form */
         input[type="email"] {
-            padding: 10px;
+            padding: 8px;
             font-size: 1em;
-            flex: 1;
             border-radius: 5px;
             border: 1px solid #ddd;
-            margin-right: 10px;
             outline: none;
+            margin-bottom: 10px;
         }
 
         button {
-            padding: 12px 20px;
+            padding: 8px 15px;
             font-size: 1em;
             background-color: #ffcc33;
             color: #333;
@@ -79,51 +101,129 @@
             background-color: #ffb732;
         }
 
-        /* Magnifying glass effect */
-        .magnify {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            pointer-events: none;
-            transform: translate(-60px, -60px);
-            backdrop-filter: blur(10px);
-            display: none;
+        /* Live date and time (reduced size and stable width) */
+        .live-date {
+            font-size: 1.2em;
+            margin-top: 20px;
+            width: 280px; /* Fixed width to prevent shaking */
+            text-align: center;
         }
 
+        /* Footer styles */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #666;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Purple dot cursor */
+        .cursor {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #6a0dad; /* Purple dot */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .cursor-trail {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(160, 80, 200, 0.2); /* Light purple trailing circle */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Magnifying glass effect -->
-    <div class="magnify" id="magnify"></div>
-
-    <!-- Centered logo -->
-    <div class="logo-container">
-        <img src="images/u-nick-lo-logo.png" alt="Unicklo Logo" class="logo">
+    <!-- Floating transparent navigation bar -->
+    <div class="navbar">
+        <div class="navbar-logo">
+            <img src="images/u-nick-lo-logo.png" alt="Unicklo Logo">
+        </div>
+        <div class="cart">
+            <a href="#">Cart 0</a>
+        </div>
     </div>
 
-    <!-- Container for Main Content -->
+    <!-- Container for main content -->
     <div class="container">
-        <form style="display: flex; width: 100%;">
+        <!-- Sign up for the next drop -->
+        <h2>Sign Up for the Next Drop</h2>
+        <form style="display: flex; flex-direction: column;">
             <input type="email" placeholder="Enter your email" required>
             <button type="submit">Sign Up</button>
         </form>
+
+        <!-- Live date and time (moved below the Sign Up button) -->
+        <div class="live-date" id="live-date"></div>
     </div>
 
-    <!-- JavaScript for magnifying glass effect -->
+    <!-- Purple dot cursor and trailing effect -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursor-trail"></div>
+
+    <!-- Footer with Contact Us and Salt Lake City, Utah -->
+    <footer>
+        <a href="#">Contact Us</a><br>
+        Salt Lake City, Utah
+    </footer>
+
+    <!-- JavaScript for live date and time + mouse effect -->
     <script>
-        const magnify = document.getElementById('magnify');
+        // Update live date and time
+        function updateTime() {
+            const now = new Date();
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const year = now.getFullYear();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const milliseconds = now.getMilliseconds().toString().padStart(3, '0');
+            const liveDate = document.getElementById('live-date');
+            liveDate.textContent = `${day} ${month} ${year} ${hours}:${minutes}:${seconds}:${milliseconds}`;
+        }
+
+        setInterval(updateTime, 10); // Update every 10 milliseconds
+
+        // Cursor effect
+        const cursor = document.getElementById('cursor');
+        const cursorTrail = document.getElementById('cursor-trail');
+        let mouseX = 0, mouseY = 0;
+        let trailX = 0, trailY = 0;
+
         document.addEventListener('mousemove', (e) => {
-            magnify.style.display = 'block';
-            magnify.style.left = `${e.clientX}px`;
-            magnify.style.top = `${e.clientY}px`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = `${mouseX}px`;
+            cursor.style.top = `${mouseY}px`;
         });
 
-        document.addEventListener('mouseout', () => {
-            magnify.style.display = 'none';
-        });
+        function animateTrail() {
+            trailX += (mouseX - trailX) * 0.1;
+            trailY += (mouseY - trailY) * 0.1;
+            cursorTrail.style.left = `${trailX - 20}px`; // Offset for center alignment
+            cursorTrail.style.top = `${trailY - 20}px`;
+            requestAnimationFrame(animateTrail);
+        }
+
+        animateTrail();
     </script>
 </body>
 </html>
