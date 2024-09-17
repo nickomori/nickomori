@@ -9,91 +9,58 @@
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-color: #f0f4f8; /* Soft background color */
-            transition: background-color 1s;
+            background-color: #9fbfaf; /* Slightly darker background */
             color: #333;
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
 
-        /* Left-hand sidebar */
-        .sidebar {
+        /* Top navigation bar */
+        .header {
             position: fixed;
             top: 0;
             left: 0;
-            width: 200px;
-            height: 100vh;
-            background-color: #333;
-            color: white;
-            padding: 20px;
+            width: 100%;
+            background-color: #bfd4c6; /* Lighter green */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Drop shadow */
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
         }
 
-        .sidebar h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.1em;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-        }
-
-        /* Header */
         .logo {
-            position: absolute;
-            top: 10px;
-            left: 220px;
-            font-size: 2em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #FFD700;
-            cursor: pointer;
+            height: 60px;
         }
 
         /* Container for content */
         .container {
             text-align: center;
-            margin-left: 220px;
-            padding: 50px;
+            padding: 20px;
+            background-color: #a9c2b4; /* Slightly darker shade for depth */
+            border-radius: 10px;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+            width: 300px;
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 1.8em;
             margin-bottom: 20px;
             color: #333;
         }
 
-        .mouse-effect {
-            font-size: 1.2em;
-            margin-bottom: 40px;
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
         }
 
         /* Email form */
-        form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
         input[type="email"] {
             padding: 10px;
             font-size: 1em;
-            width: 300px;
+            width: 100%;
             border-radius: 5px;
             border: 1px solid #ddd;
             margin-bottom: 10px;
@@ -101,9 +68,9 @@
         }
 
         button {
-            padding: 12px 30px;
-            font-size: 1.2em;
-            background-color: #FFD700;
+            padding: 12px 20px;
+            font-size: 1em;
+            background-color: #ffd700;
             color: #333;
             border: none;
             border-radius: 5px;
@@ -114,75 +81,21 @@
         button:hover {
             background-color: #ffcc00;
         }
-
-        /* Ripple mouse effect */
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.7);
-            animation: ripple-effect 1s linear infinite;
-            pointer-events: none;
-            z-index: 100;
-            opacity: 0;
-        }
-
-        @keyframes ripple-effect {
-            from {
-                transform: scale(0);
-                opacity: 1;
-            }
-            to {
-                transform: scale(5);
-                opacity: 0;
-            }
-        }
-
-        /* Footer */
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 220px;
-            width: calc(100% - 220px);
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        footer a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- Left-hand Sidebar -->
-    <div class="sidebar">
-        <h2>Menu</h2>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
-
-    <!-- Logo/Header -->
-    <div class="logo" onclick="window.location.href='/'">
-        Unicklo
+    <!-- Header with Logo -->
+    <div class="header">
+        <a href="/">
+            <img src="images/u-nick-lo-logo.png" alt="Unicklo Logo" class="logo">
+        </a>
     </div>
 
     <!-- Container for Main Content -->
     <div class="container">
         <h1>Sign Up for the Next Drop</h1>
-        <p class="mouse-effect">Be the first to know when we release something exclusive!</p>
+        <p>Be the first to know when we release something exclusive!</p>
 
         <form>
             <input type="email" placeholder="Enter your email" required>
@@ -190,28 +103,5 @@
         </form>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Contact Us</a>
-    </footer>
-
-    <!-- Ripple Mouse Effect -->
-    <script>
-        document.addEventListener("click", function(event) {
-            const ripple = document.createElement("div");
-            ripple.classList.add("ripple");
-            document.body.appendChild(ripple);
-
-            const size = Math.max(window.innerWidth, window.innerHeight);
-            ripple.style.width = ripple.style.height = `${size}px`;
-            ripple.style.left = `${event.clientX - size / 2}px`;
-            ripple.style.top = `${event.clientY - size / 2}px`;
-
-            // Remove ripple after animation
-            ripple.addEventListener("animationend", () => ripple.remove());
-        });
-    </script>
 </body>
 </html>
